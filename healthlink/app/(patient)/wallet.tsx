@@ -14,6 +14,7 @@ import {
 import { setItem, getItem, keyExsists } from "@/scripts/AsyncStorage";
 import { ethers, Wallet } from "ethers";
 import * as Clipboard from "expo-clipboard";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const wallet = () => {
   const [pblkey, Setpblkey] = useState(" ");
@@ -67,23 +68,6 @@ const wallet = () => {
   useEffect(() => {
     handlekeys();
   }, [pvtkey]);
-
-  const isValidPrivateKey = (privateKey: any) => {
-    if (
-      typeof privateKey !== "string" ||
-      privateKey.length !== 66 ||
-      !/^0x[0-9a-fA-F]{64}$/.test(privateKey)
-    ) {
-      return false;
-    }
-
-    try {
-      const wallet = new ethers.Wallet(privateKey);
-      return wallet.address !== undefined;
-    } catch (error) {
-      return false;
-    }
-  };
 
   const [isDepositModalVisible, setDepositModalVisible] = useState(false);
   const [isBackupModalVisible, setBackupModalVisible] = useState(false);
@@ -205,15 +189,12 @@ const wallet = () => {
               <TouchableOpacity
                 className="bg-blue-500 w-[20%] self-center"
                 onPress={() => {
-                  const isvalid = isValidPrivateKey(restorekey);
-                  if (isvalid) {
-                    setItem("privatekey", restorekey);
-                    Setpvtkey(restorekey);
-                  } else {
-                    alert("invalid key");
+                  const newpvk = restorekey;
+                  const newwallet = new ethers.Wallet(newpvk);
+                  if (newwallet.address) {
+                    AsyncStorage.setItem("privatekey", newpvk);
+                    Setpvtkey(pvtkey);
                   }
-                  Setrestorekey("");
-                  toggleRecoverModal();
                 }}
               >
                 <Text className="text-center rounded-2xl">Submit</Text>
@@ -227,6 +208,8 @@ const wallet = () => {
                   {/* //@ts-ignore */}
                   {balance.toString().slice(0, 7)} ETH
                 </Text>
+                +
+                +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                 <Text className="text-center text-[#898989] text-xl">
                   ${usdbalance}
                 </Text>

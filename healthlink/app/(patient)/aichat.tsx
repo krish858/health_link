@@ -152,14 +152,75 @@ import {
 } from "react-native";
 import axios from "axios";
 
+<<<<<<< Updated upstream
 const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState("");
+=======
+interface Message {
+  id: number;
+  text: string;
+  sender: "user" | "bot";
+}
+
+const ChatbotUI: React.FC = () => {
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [inputText, setInputText] = useState<string>("");
+>>>>>>> Stashed changes
 
   const sendMessage = async () => {
     if (!inputText.trim()) return;
 
+<<<<<<< Updated upstream
     const newMessage = {
+=======
+    const newMessage: Message = {
+>>>>>>> Stashed changes
+      id: Date.now(),
+      text: inputText,
+      sender: "user",
+    };
+
+    setMessages((prevMessages) => [...prevMessages, newMessage]);
+    setInputText("");
+
+    try {
+<<<<<<< Updated upstream
+      const chatHistory = messages
+        .map(
+          (msg) => `${msg.sender === "user" ? "User: " : "Bot: "}${msg.text}`
+        )
+        .join("\n");
+
+=======
+      const chatHistory = messagesimport React, { useState } from "react";
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  Text,
+  FlatList,
+  StyleSheet,
+  SafeAreaView,
+  Platform,
+  StatusBar,
+} from "react-native";
+import axios from "axios";
+
+interface Message {
+  id: number;
+  text: string;
+  sender: "user" | "bot";
+}
+
+const ChatbotUI: React.FC = () => {
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [inputText, setInputText] = useState<string>("");
+
+  const sendMessage = async () => {
+    if (!inputText.trim()) return;
+
+    const newMessage: Message = {
       id: Date.now(),
       text: inputText,
       sender: "user",
@@ -170,11 +231,10 @@ const Chat = () => {
 
     try {
       const chatHistory = messages
-        .map(
-          (msg) => `${msg.sender === "user" ? "User: " : "Bot: "}${msg.text}`
-        )
+        .map((msg) => `${msg.sender === "user" ? "User: " : "Bot: "}${msg.text}`)
         .join("\n");
 
+>>>>>>> Stashed changes
       const fullChatHistory = `${chatHistory}\nUser: ${newMessage.text}`;
 
       const response = await axios.post(
@@ -184,25 +244,41 @@ const Chat = () => {
         }
       );
 
+<<<<<<< Updated upstream
       const botMessage = {
         id: Date.now(),
         text: response.data.aiResponse,
+=======
+      const botMessage: Message = {
+        id: Date.now(),
+        text: response.data.aiResponse || "No response from bot.",
+>>>>>>> Stashed changes
         sender: "bot",
       };
 
       setMessages((prevMessages) => [...prevMessages, botMessage]);
     } catch (error) {
       console.error("Error sending message:", error);
+<<<<<<< Updated upstream
       const errorMessage = {
         id: Date.now(),
         text: "Sorry, something went wrong.",
+=======
+      const errorMessage: Message = {
+        id: Date.now(),
+        text: "Sorry, something went wrong. Please try again.",
+>>>>>>> Stashed changes
         sender: "bot",
       };
       setMessages((prevMessages) => [...prevMessages, errorMessage]);
     }
   };
 
+<<<<<<< Updated upstream
   const renderMessage = ({ item }) => (
+=======
+  const renderMessage = ({ item }: { item: Message }) => (
+>>>>>>> Stashed changes
     <View
       style={[
         styles.messageContainer,
@@ -232,7 +308,15 @@ const Chat = () => {
             placeholder="Type your message..."
             placeholderTextColor="#888"
           />
+<<<<<<< Updated upstream
           <TouchableOpacity style={styles.sendButton} onPress={sendMessage}>
+=======
+          <TouchableOpacity
+            style={styles.sendButton}
+            onPress={sendMessage}
+            disabled={!inputText.trim()}
+          >
+>>>>>>> Stashed changes
             <Text style={styles.sendButtonText}>Send</Text>
           </TouchableOpacity>
         </View>
@@ -274,11 +358,19 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
   },
   botMessage: {
+<<<<<<< Updated upstream
     backgroundColor: "#007bff",
     alignSelf: "flex-start",
   },
   messageText: {
     color: "white",
+=======
+    backgroundColor: "#e0e0e0",
+    alignSelf: "flex-start",
+  },
+  messageText: {
+    color: "black",
+>>>>>>> Stashed changes
     fontSize: 16,
   },
   inputContainer: {
@@ -310,4 +402,28 @@ const styles = StyleSheet.create({
   },
 });
 
+<<<<<<< Updated upstream
 export default Chat;
+=======
+export default ChatbotUI;
+
+        .map((msg) => `${msg.sender === "user" ? "User: " : "Bot: "}${msg.text}`)
+        .join("\n");
+
+      const fullChatHistory = `${chatHistory}\nUser: ${newMessage.text}`;
+
+      const response = await axios.post(
+        "https://backend-7306.onrender.com/api/v1/ai/chat",
+        {
+          chats: fullChatHistory,
+        }
+      );
+
+      const botMessage: Message = {
+        id: Date.now(),
+        text: response.data.aiResponse || "No response from bot.",
+        sender: "bot",
+      };
+
+      se
+>>>>>>> Stashed changes
