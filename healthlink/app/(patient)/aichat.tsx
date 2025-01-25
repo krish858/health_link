@@ -1,5 +1,14 @@
-mport React, { useState } from "react";
-import {View,TextInput,TouchableOpacity,Text,FlatList,StyleSheet,SafeAreaView,Platform,StatusBar,
+import React, { useState } from "react";
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  Text,
+  FlatList,
+  StyleSheet,
+  SafeAreaView,
+  Platform,
+  StatusBar,
 } from "react-native";
 import axios from "axios";
 
@@ -7,7 +16,7 @@ const Chat = () => {
   const [messages, setMessages] = useState([
     {
       id: "1",
-      text: Hello! This is your virtual health assistant. How can I help you today?,
+      text: "Hello! This is your virtual health assistant. How can I help you today?",
       sender: "bot",
     },
   ]);
@@ -21,18 +30,19 @@ const Chat = () => {
       text: inputText,
       sender: "user",
     };
-
+    //@ts-ignore
     setMessages((prevMessages) => [...prevMessages, newMessage]);
     setInputText("");
 
     try {
+      //@ts-ignore
       const chatHistory = messages
         .map(
-          (msg) => ${msg.sender === "user" ? "User: " : "Bot: "}${msg.text}
+          (msg) => `${msg.sender === "user" ? "User: " : "Bot: "}${msg.text}`
         )
         .join("\n");
 
-      const fullChatHistory = ${chatHistory}\nUser: ${newMessage.text};
+      const fullChatHistory = `${chatHistory}\nUser: ${newMessage.text}`;
 
       const response = await axios.post(
         "https://backend-7306.onrender.com/api/v1/ai/chat",
@@ -46,7 +56,7 @@ const Chat = () => {
         text: response.data.aiResponse,
         sender: "bot",
       };
-
+      //@ts-ignore
       setMessages((prevMessages) => [...prevMessages, botMessage]);
     } catch (error) {
       console.error("Error sending message:", error);
@@ -55,10 +65,11 @@ const Chat = () => {
         text: "Sorry, something went wrong.",
         sender: "bot",
       };
+      //@ts-ignore
       setMessages((prevMessages) => [...prevMessages, errorMessage]);
     }
   };
-
+  //@ts-ignore
   const renderMessage = ({ item }) => (
     <View
       style={[
