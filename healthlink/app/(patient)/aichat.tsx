@@ -153,7 +153,13 @@ import {
 import axios from "axios";
 
 const Chat = () => {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([
+    {
+      id: "1",
+      text: `Hello! This is your virtual health assistant. How can I help you today?`,
+      sender: "bot",
+    },
+  ]);
   const [inputText, setInputText] = useState("");
 
   const sendMessage = async () => {
