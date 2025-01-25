@@ -16,7 +16,7 @@ const layout = () => {
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="createrec"
         options={{
           title: "createrec",
           tabBarIcon: ({ color }) => (
@@ -27,7 +27,7 @@ const layout = () => {
       <Tabs.Screen
         name="wallet"
         options={{
-          title: "Dashboard",
+          title: "wallet",
           tabBarIcon: ({ color }) => (
             <Ionicons name="person-outline" size={25} color={"#CBD5E1"} />
           ),

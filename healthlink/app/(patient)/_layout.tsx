@@ -16,7 +16,7 @@ const layout = () => {
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="aichat"
         options={{
           title: "aichat",
           tabBarIcon: ({ color }) => (

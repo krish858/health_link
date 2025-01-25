@@ -5,7 +5,7 @@ import { TouchableOpacity } from "react-native";
 import { clear, getItem } from "@/scripts/AsyncStorage";
 import { router } from "expo-router";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+import GetRecords from "@/scripts/GetRecords";
 const getrec = () => {
   const [name, Setname] = React.useState("");
 
@@ -34,6 +34,7 @@ const getrec = () => {
         </TouchableOpacity>
       </View>
       <Text className="text-3xl text-blue-400 mx-4">{name}</Text>
+      <GetRecords />
     </SafeAreaView>
   );
 };

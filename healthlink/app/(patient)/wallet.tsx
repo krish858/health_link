@@ -108,7 +108,7 @@ const wallet = () => {
           <View className="px-2 text-[#f0f1f2] ">
             <TouchableOpacity
               onPress={() => {
-                router.push("/(tabs)/home");
+                router.push("/(patient)/getrec");
               }}
             >
               <Text className="px-2 text-[#f0f1f2] ">

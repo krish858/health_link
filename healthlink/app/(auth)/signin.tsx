@@ -44,14 +44,20 @@ const signin = () => {
       if (response.data.message === "Invalid password") {
         console.log("Invalid password");
       }
-      if (response.data.message === "Sign-in successful") {
+      if (response.data.msg == "success") {
         console.log("Sign-in successful");
         await AsyncStorage.setItem("token", response.data.token);
-        const decoded = await JWT.decode(response.data.token, "ligma_ballz");
-        const username = decoded?.fullname;
-        await AsyncStorage.setItem("user", username);
-        await AsyncStorage.setItem("email", email);
-        await router.replace("/(tabs)/home");
+        const decoded = await JWT.decode(response.data.token, "hello_man123");
+        const username = await decoded?.fullname;
+        await AsyncStorage.setItem("user", username || "");
+        AsyncStorage.setItem("email", response.data.email);
+        console.log(response.data.designation);
+
+        if (response.data.designation == "doctor") {
+          await router.replace("/(doctor)/createrec");
+        } else {
+          await router.replace("/(patient)/getrec");
+        }
       }
       console.log(response.data);
     } catch (error) {
